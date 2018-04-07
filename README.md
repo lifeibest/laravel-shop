@@ -16,3 +16,17 @@ After installing `laravel-shop`, publish its config using the vendor:publish Art
 ```shell
 php artisan vendor:publish --provider="Lifeibest\LaravelShop\ShopServiceProvider"
 `
+
+
+
+migrate database
+
+```shell
+php artisan migrate --path=vendor/lifeibest/laravel-shop/database/migrations
+```
+
+import menu and permission
+
+```shell
+php artisan admin:import shop
+```

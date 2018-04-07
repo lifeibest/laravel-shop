@@ -2,6 +2,8 @@
 namespace Lifeibest\LaravelShop;
 
 use Encore\Admin\Admin;
+use Encore\Admin\Auth\Database\Menu;
+use Encore\Admin\Auth\Database\Permission;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -94,6 +96,45 @@ class ShopServiceProvider extends ServiceProvider
                 __DIR__ . '/../config/shop.php' => config_path('shop.php'),
             ], 'shop-config');
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function import()
+    {
+        $lastOrder = Menu::max('order');
+        $root = [
+            'parent_id' => 0,
+            'order' => $lastOrder++,
+            'title' => '产品管理',
+            'icon' => 'fa-tasks',
+            'uri' => '',
+        ];
+        $root = Menu::create($root);
+        $menus = [
+            [
+                'title' => '产品管理',
+                'icon' => 'fa-tasks',
+                'uri' => 'shop-product',
+            ],
+            [
+                'title' => '产品属性',
+                'icon' => 'fa-terminal',
+                'uri' => 'shop-product-attr',
+            ],
+        ];
+        foreach ($menus as $menu) {
+            $menu['parent_id'] = $root->id;
+            $menu['order'] = $lastOrder++;
+            Menu::create($menu);
+        }
+
+        Permission::create([
+            'name' => 'Product Management',
+            'slug' => 'ext.shop',
+            'http_path' => '/' . trim('product*', '/'),
+        ]);
     }
 
 }
