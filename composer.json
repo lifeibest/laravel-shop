@@ -1,0 +1,35 @@
+{
+    "name": "lifeibest/laravel-shop",
+    "description": "shop management",
+    "keywords": ["shop","laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lifeibest",
+            "email": "lifeibest@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": "5.5.*",
+        "encore/laravel-admin": "1.5.*"
+
+    },
+    "require-dev": {
+        "laravel/laravel": "5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lifeibest\\LaravelShop\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lifeibest\\LaravelShop\\ShopServiceProvider"
+            ]
+
+        }
+    }
+
+}
